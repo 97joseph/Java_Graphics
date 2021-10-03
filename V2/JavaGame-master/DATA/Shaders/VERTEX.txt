@@ -1,0 +1,16 @@
+#version 120
+varying vec3 vert;
+varying vec4 offsetFactor;
+varying vec4 rotationFactor;
+uniform int time;
+const float pi = 3.14159265759;
+void main(){
+    float t2 = time;
+    float kek = pi*(t2/1000);
+    
+    offsetFactor = vec4(cos(kek)/100,sin(kek)/100,0,0);
+    rotationFactor = vec4(1,-1,1,1);
+    vert =vec4(gl_Vertex*rotationFactor+offsetFactor).xyz;
+    gl_Position = vec4(vert,1)*gl_ModelViewMatrix;
+    gl_TexCoord[0] = gl_MultiTexCoord0;
+}

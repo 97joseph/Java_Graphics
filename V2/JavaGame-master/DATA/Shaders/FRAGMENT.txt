@@ -1,0 +1,53 @@
+varying vec3 vert;
+varying vec4 offsetFactor;
+varying vec4 rotationFactor;
+uniform vec4 inputColor;
+uniform int time;
+uniform sampler2D text;
+uniform int useTextures;
+const int lightMax = 45;
+const float pi = 3.1415926;
+uniform float lightX[lightMax];
+uniform float lightY[lightMax];
+uniform float lightR[lightMax];
+uniform float lightG[lightMax];
+uniform float lightB[lightMax];
+uniform float lightIntensities[lightMax];
+uniform int lightNum; 
+vec3 getLights()
+{
+   vec3 rLight = vec3(.5,.5,.5);
+   int iter = lightNum;
+   if(lightNum>lightMax)
+   {
+     iter = lightMax;
+   }
+   for(int i=0;i<iter;i++)
+   {
+      vec2 lightPos = vec2(lightX[i],lightY[i])+offsetFactor.xy;
+      float dis = distance(vert.xy,lightPos);
+      float diffuse =max(1/tan(min(dis,pi/2)),0);
+      float Attenuation = 0+0*dis+20*dis*dis;
+      if(Attenuation!=0)
+      {
+         Attenuation = 1;
+      }
+      rLight +=vec3(lightR[i],lightG[i],lightB[i])*diffuse*lightIntensities[i];
+   }
+   return rLight;
+}
+float distance(vec2 a, vec2 b)
+{
+   return sqrt(pow(a.x-b.x,2)+pow(a.y-b.y,2));
+}
+
+void main(){
+    vec4 colorOut=vec4(1,1,1,1);
+    if(useTextures)
+    {
+      vec2 Texcoord = gl_TexCoord[0].st;
+      colorOut=colorOut*texture2D(text,Texcoord);
+    }
+    colorOut = (colorOut*inputColor)*vec4(getLights(),1);
+    gl_FragColor = colorOut;//vec4(vec3(1,1,1)-colorOut.xyz,colorOut.a);
+}

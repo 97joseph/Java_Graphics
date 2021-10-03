@@ -1,11 +1,3 @@
-## Setup Instructions
-
-* Add the JARs under lib/jars to your project's libraries. This includes LWJGL, SlickUtils and PNGDecoder.
-* Add `-Djava.library.path=lib/natives/` to your JVM options while building.
-* **IMPORTANT** - The native link libraries included are for Linux distributions.
-  For other platforms, you'll need to download them separately from [here](https://sourceforge.net/projects/java-game-lib/files/Official%20Releases/LWJGL%202.9.3/).
-* If you have any trouble running this, shoot me an [email](mailto:chatt086@umn.edu).
-
 ## Snapshots
 
 ##### Nature's Beauty
@@ -89,3 +81,10 @@ In this project, you navigate your ship in 3rd-Person through a beautiful hilly 
 * The two textures are mixed using the **Fresnel Effect**. This is achieved by the simple formula for refractivity = max(dot(water_normal, view_direction), 0). A higher value results in less reflectivity.
 * To make it look like the water is rippling, we add some distortion to the surface of the water according to a **DuDv Map**. We also change the distortion with respect to time for realistic effect.
 * A **Normal Map** that corresponds to the DuDv map is used for uneven specular highlights on the surface of the water based on the ripples.
+
+## Setup Instructions
+
+* Add the JARs under lib/jars to your project's libraries. This includes LWJGL, SlickUtils and PNGDecoder.
+* Add `-Djava.library.path=lib/natives/` to your JVM options while building.
+* **IMPORTANT** - The native link libraries included are for Linux distributions.
+  For other platforms, you'll need to download them separately from [here](https://sourceforge.net/projects/java-game-lib/files/Official%20Releases/LWJGL%202.9.3/).
